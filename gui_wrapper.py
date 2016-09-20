@@ -25,6 +25,18 @@ class GuiWrapper(QtGui.QMainWindow, python_converted_gui.Ui_BrowserCacheAnalyzer
         self.btn_app_close.clicked.connect(self.close_application)
         self.btn_app_minimize.clicked.connect(self.showMinimized)
 
+    ###########################
+    # SECTION: WELCOME SCREEN #
+    ###########################
+
+        # Setting "welcome screen" as application start screen
+        self.stackedWidget.setCurrentIndex(0)
+
+        # If "welcome screen", "system info" and "selected browser info" group boxes are not visible
+        if self.stackedWidget.currentIndex() == 0:
+            self.groupBox_system_info.setVisible(False)
+            self.groupBox_selected_browser_info.setVisible(False)
+
     ##################
     # SECTION: SLOTS #
     ##################
