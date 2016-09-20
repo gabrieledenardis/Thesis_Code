@@ -1,0 +1,7 @@
+# Pycharm settings
+.idea
+
+# Project files
+*.pyc
+gui_compiler.py
+python_converted_gui.py
