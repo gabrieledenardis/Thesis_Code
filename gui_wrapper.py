@@ -4,6 +4,9 @@
 # PyQt4 imports
 from PyQt4 import QtGui, QtCore
 
+# Python imports
+import platform
+
 # Projects imports
 from gui import python_converted_gui
 
@@ -24,6 +27,9 @@ class GuiWrapper(QtGui.QMainWindow, python_converted_gui.Ui_BrowserCacheAnalyzer
         # Application "close" and "minimize" buttons
         self.btn_app_close.clicked.connect(self.close_application)
         self.btn_app_minimize.clicked.connect(self.showMinimized)
+
+        # Other application elements
+        self.btn_welcome_screen_next.clicked.connect(self.set_browser_choice_screen)
 
     ###########################
     # SECTION: WELCOME SCREEN #
@@ -57,9 +63,34 @@ class GuiWrapper(QtGui.QMainWindow, python_converted_gui.Ui_BrowserCacheAnalyzer
         if msg_confirm_exit == QtGui.QMessageBox.Yes:
             self.close()
 
+        #####################################
+        # SUBSECTION: BROWSER CHOICE SCREEN #
+        #####################################
+
+    def set_browser_choice_screen(self):
+        """
+        Slot for "next" button in "welcome screen".
+        Setting stacked widget = 1, "system info" group box visible and retrieving system values
+        """
+
+        # Setting "browsers choice screen"
+        self.stackedWidget.setCurrentIndex(1)
+
+        # "Next" button not enabled (Yet no selected item from "found browsers table")
+        self.btn_browser_choice_screen_next.setEnabled(False)
+
+        # Setting "system info" group box visible
+        self.groupBox_system_info.setVisible(True)
+
+        # "System info" values
+        self.lbl_sys_info.setText(platform.system())
+        self.lbl_release.setText(platform.release())
+        self.lbl_release_version.setText(platform.version())
+        self.lbl_hostname.setText(platform.node())
+
     ######################################################################
     # SECTION: MOUSE METHODS OVERRIDE (Application window drag and drop) #
-    ######################################################################
+    #####################################################################
 
     def mousePressEvent(self, event):
         """
